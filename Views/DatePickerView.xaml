@@ -12,6 +12,11 @@
                     SelectedDate="{Binding Path=Date, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedDateChanged="datePicker_SelectedDateChanged"/>
         <TextBox x:Name="textBox" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1"
-        Text="{Binding Path=PersonAge, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,40,0,0"/>
+                 Text="{Binding Path=PersonAge, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,40,0,360"/>
+        <TextBox x:Name="chineseBox" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1"
+                 Text="{Binding Path=ChineseSign, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,90,0,311"/>
+        <TextBox x:Name="europeBox" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1"
+                 Text="{Binding Path=EuropeSign, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,139,0,0"/>
+        
     </Grid>
 </UserControl>

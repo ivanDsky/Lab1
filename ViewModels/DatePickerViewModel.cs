@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using Lab1.Tools;
+using Lab1.Tools.Zodiac;
 
 namespace Lab1.ViewModels
 {
@@ -24,6 +25,24 @@ namespace Lab1.ViewModels
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs("PersonAge"));
             }
         }
+        public String ChineseSign
+        {
+            get => _age;
+            private set
+            {
+                _age = value;
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("ChineseSign"));
+            }
+        }
+        public String EuropeSign
+        {
+            get => _age;
+            private set
+            {
+                _age = value;
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("EuropeSign"));
+            }
+        }
         public DateTime Date
         {
             get => _date;
@@ -33,6 +52,8 @@ namespace Lab1.ViewModels
                 _date = value;
                 _birthdayYears = (age.Day == 1 && age.Month == 1) ? age.Year - 1 : -1;
                 PersonAge = AgeToString(age) + ((_birthdayYears == -1) ? "" : "\nHappy Birthday!!!");
+                ChineseSign = new ChinaZodiac(_date).GetSign();
+                EuropeSign = new EuropeZodiac(_date).GetSign();
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Date"));
             }
         }
