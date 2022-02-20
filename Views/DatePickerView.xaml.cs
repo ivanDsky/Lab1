@@ -25,10 +25,9 @@ namespace Lab1.Views
             DataContext = _viewModel = new DatePickerViewModel();
         }
 
-
         private void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            _viewModel.Date = (DateTimeOffset)((DatePicker)sender).SelectedDate;
+            _viewModel.onDateChanged(datePicker.SelectedDate);              
         }
     }
 }

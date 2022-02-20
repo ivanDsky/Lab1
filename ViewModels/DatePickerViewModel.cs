@@ -9,10 +9,10 @@ namespace Lab1.ViewModels
 {
     class DatePickerViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         #region private fields
+        private DateTime _date;
         private String _age;
-        private DateTimeOffset _date;
+        private int _birthdayYears;
         #endregion
         #region fields
         public String PersonAge
@@ -24,17 +24,27 @@ namespace Lab1.ViewModels
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs("PersonAge"));
             }
         }
-        public DateTimeOffset Date
+        public DateTime Date
         {
             get => _date;
             set
             {
+                DateTime age = CalculateAge(value);
                 _date = value;
-                PersonAge = AgeToString(CalculateAge(_date.DateTime));
+                _birthdayYears = (age.Day == 1 && age.Month == 1) ? age.Year - 1 : -1;
+                PersonAge = AgeToString(age) + ((_birthdayYears == -1) ? "" : "\nHappy Birthday!!!");
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Date"));
             }
         }
-        #endregion      
-    
+        #endregion
+
+        public DatePickerViewModel()
+        {
+            _date = DateTime.Today;
+            _age = AgeToString(CalculateAge(_date));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
         private String AgeToString(DateTime age)
         {
             return String.Format("{0} year{1}, {2} month{3}, {4} day{5}", 
@@ -45,6 +55,26 @@ namespace Lab1.ViewModels
         private DateTime CalculateAge(DateTime birthDate)
         {
             return new AgeCalculator(birthDate).CurrentAge;
+        }
+
+        public void onDateChanged(DateTime? newDate)
+        {
+            if (newDate == null)
+            {
+                MessageBox.Show("Empty date");
+                Date = _date;
+                return;
+            }
+            DateTime x = newDate!.Value;
+            try
+            {
+                Date = x;
+            }
+            catch (ArgumentOutOfRangeException exception)
+            {
+                MessageBox.Show(exception.Message);
+                Date = _date;
+            }
         }
     }
 }

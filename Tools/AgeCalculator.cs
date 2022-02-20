@@ -17,7 +17,17 @@ namespace Lab1.Tools
         public AgeCalculator(DateTime dateOfBirth)
         {
             _dateOfBirth = dateOfBirth;
-            _deltaDate = CalculateDeltaAge(_dateOfBirth, DateTime.Today);
+            try
+            {
+                _deltaDate = CalculateDeltaAge(_dateOfBirth, DateTime.Today);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                throw new ArgumentOutOfRangeException(null,"Age is negative");
+            }
+            if (_deltaDate.Year >= 135)
+                throw new ArgumentOutOfRangeException(null,"Age is greater than 135");
+
         }
 
         public DateTime CalculateDeltaAge(DateTime birthDate, DateTime now)
