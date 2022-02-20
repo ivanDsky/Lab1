@@ -10,37 +10,39 @@ namespace Lab1.ViewModels
 {
     class DatePickerViewModel : INotifyPropertyChanged
     {
-        #region private fields
+        #region Private fields
         private DateTime _date;
         private String _age;
+        private String _chineseSign;
+        private String _westSign;
         private int _birthdayYears;
         #endregion
-        #region fields
+        #region Fields
         public String PersonAge
         {
             get => _age;
             private set
             {
                 _age = value;
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("PersonAge"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("PersonAge"));
             }
         }
         public String ChineseSign
         {
-            get => _age;
+            get => "Chinese Zodiak Sign: " + _chineseSign;
             private set
             {
-                _age = value;
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("ChineseSign"));
+                _chineseSign = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ChineseSign"));
             }
         }
         public String EuropeSign
         {
-            get => _age;
+            get => "West Zodiak Sign: " + _westSign;
             private set
             {
-                _age = value;
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("EuropeSign"));
+                _westSign = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("EuropeSign"));
             }
         }
         public DateTime Date
@@ -48,24 +50,28 @@ namespace Lab1.ViewModels
             get => _date;
             set
             {
-                DateTime age = CalculateAge(value);
-                _date = value;
-                _birthdayYears = (age.Day == 1 && age.Month == 1) ? age.Year - 1 : -1;
-                PersonAge = AgeToString(age) + ((_birthdayYears == -1) ? "" : "\nHappy Birthday!!!");
-                ChineseSign = new ChinaZodiac(_date).GetSign();
-                EuropeSign = new EuropeZodiac(_date).GetSign();
+                SetDate(value);
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Date"));
             }
         }
+        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         public DatePickerViewModel()
         {
-            _date = DateTime.Today;
-            _age = AgeToString(CalculateAge(_date));
+            SetDate(DateTime.Today);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        #region Private methods
+        private void SetDate(DateTime date)
+        {
+            DateTime age = CalculateAge(date);
+            _date = date;
+            _birthdayYears = (age.Day == 1 && age.Month == 1) ? age.Year - 1 : -1;
+            PersonAge = AgeToString(age) + ((_birthdayYears == -1) ? "" : "\nHappy Birthday!!!");
+            ChineseSign = new ChinaZodiac(_date).GetSign();
+            EuropeSign = new EuropeZodiac(_date).GetSign();
+        }
         private String AgeToString(DateTime age)
         {
             return String.Format("{0} year{1}, {2} month{3}, {4} day{5}", 
@@ -77,6 +83,7 @@ namespace Lab1.ViewModels
         {
             return new AgeCalculator(birthDate).CurrentAge;
         }
+        #endregion
 
         public void onDateChanged(DateTime? newDate)
         {

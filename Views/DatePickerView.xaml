@@ -6,17 +6,47 @@
              xmlns:local="clr-namespace:Lab1.Views"
              mc:Ignorable="d" 
              Background="AliceBlue"
+             MinHeight="150"
+             MinWidth="400"
              d:DesignHeight="450" d:DesignWidth="783.456">
-    <Grid>
-        <DatePicker x:Name="datePicker" Grid.Row="0" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1" 
+    <Grid ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBox 
+            IsReadOnly="True"
+            IsReadOnlyCaretVisible="False"
+            Text="Enter your birthday date." 
+            Grid.Row="0" 
+            VerticalContentAlignment="Center"/>
+        <DatePicker x:Name="datePicker" Grid.Row="1"
                     SelectedDate="{Binding Path=Date, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedDateChanged="datePicker_SelectedDateChanged"/>
-        <TextBox x:Name="textBox" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1"
-                 Text="{Binding Path=PersonAge, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,40,0,360"/>
-        <TextBox x:Name="chineseBox" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1"
-                 Text="{Binding Path=ChineseSign, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,90,0,311"/>
-        <TextBox x:Name="europeBox" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1"
-                 Text="{Binding Path=EuropeSign, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,139,0,0"/>
+                    SelectedDateChanged="datePicker_SelectedDateChanged"
+                    VerticalContentAlignment="Center"/>
+        <TextBox 
+            IsReadOnly="True"
+            IsReadOnlyCaretVisible="False"
+            Grid.Row="3" 
+            VerticalContentAlignment="Center"
+            Text="{Binding Path=PersonAge, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox 
+            IsReadOnly="True"
+            IsReadOnlyCaretVisible="False"
+            Grid.Row="4"
+            VerticalContentAlignment="Center"
+            Text="{Binding Path=ChineseSign, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox 
+            IsReadOnly="True"
+            IsReadOnlyCaretVisible="False"
+            Grid.Row="5"
+            VerticalContentAlignment="Center"
+            Text="{Binding Path=EuropeSign, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
         
     </Grid>
 </UserControl>

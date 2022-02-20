@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Lab1"
         xmlns:views="clr-namespace:Lab1.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        MinHeight="250"
+        MinWidth="450"
+        Title="Birthday App (by Ivan Dobrovolskyi)" Height="250" Width="800">
         <views:DatePickerView></views:DatePickerView>
-    </Grid>
 </Window>
