@@ -11,17 +11,17 @@ namespace Lab1.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         #region private fields
-        private String _name;
+        private String _age;
         private DateTimeOffset _date;
         #endregion
         #region fields
-        public String Name
+        public String PersonAge
         {
-            get => _name;
+            get => _age;
             private set
             {
-                _name = value;
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Name"));
+                _age = value;
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("PersonAge"));
             }
         }
         public DateTimeOffset Date
@@ -30,10 +30,21 @@ namespace Lab1.ViewModels
             set
             {
                 _date = value;
-                Name = value.ToString();
+                PersonAge = AgeToString(CalculateAge(_date.DateTime));
             }
         }
         #endregion      
     
+        private String AgeToString(DateTime age)
+        {
+            return String.Format("{0} year{1}, {2} month{3}, {4} day{5}", 
+                age.Year - 1, (age.Year - 1 > 1) ? "s" : "",
+                age.Month - 1, (age.Month - 1 > 1) ? "s" : "", 
+                age.Day - 1, (age.Day - 1 > 1) ? "s" : "");
+        }
+        private DateTime CalculateAge(DateTime birthDate)
+        {
+            return new AgeCalculator(birthDate).CurrentAge;
+        }
     }
 }
